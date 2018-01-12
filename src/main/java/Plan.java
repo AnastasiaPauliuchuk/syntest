@@ -1,4 +1,6 @@
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Anastasia Pauliuchuk
@@ -7,26 +9,62 @@ import java.util.HashSet;
 public class Plan {
 
     private boolean mixTraffic;
-    private HashSet<Device> devices;
-    private HashSet<Policy> policies;
+    private List<Device> devices = new ArrayList<>();
 
 
     public Plan() {
         super();
     }
-    public Plan(boolean mixTraffic, HashSet<Device> devices, HashSet<Policy> policies) {
+    public Plan(boolean mixTraffic, List<Device> devices, Set<Policy> policies) {
         this.mixTraffic = mixTraffic;
         this.devices = devices;
-        this.policies = policies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Plan plan = (Plan) o;
+
+        if (mixTraffic != plan.mixTraffic)
+            return false;
+        if (devices != null ? !devices.equals(plan.devices) : plan.devices != null)
+            return false;
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = (mixTraffic ? 1 : 0);
+        result = 31 * result + (devices != null ? devices.hashCode() : 0);
+        return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public String toString() {
+        return "Plan{" +
+                "mixTraffic=" + mixTraffic +
+                ", devices=" + devices +
+                '}';
     }
+
+    public boolean isMixTraffic() {
+        return mixTraffic;
+    }
+
+    public void setMixTraffic(boolean mixTraffic) {
+        this.mixTraffic = mixTraffic;
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
 }
